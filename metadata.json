@@ -1,0 +1,6 @@
+{
+  "name": "Kabir Tech Lab",
+  "description": "Mobile app for the Kabir Tech Lab YouTube channel featuring tech tutorials, Bangla stories, playlists, quizzes, resources, and community.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

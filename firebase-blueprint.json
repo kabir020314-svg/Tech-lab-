@@ -1,0 +1,278 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User learning stats, language preference, favorite categories, and membership status.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "preferredLanguage": { "type": "string", "enum": ["bn", "en"] },
+        "favoriteCategories": { "type": "array" },
+        "xpPoints": { "type": "integer" },
+        "streakDays": { "type": "integer" },
+        "watchedCount": { "type": "integer" },
+        "watchMinutes": { "type": "integer" },
+        "badges": { "type": "array" },
+        "premiumMember": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "displayName", "preferredLanguage", "xpPoints", "streakDays", "watchedCount", "watchMinutes", "premiumMember", "createdAt", "updatedAt"]
+    },
+    "SavedVideo": {
+      "title": "SavedVideo",
+      "description": "Bookmarked YouTube video stored under a user profile.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "videoId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "durationLabel": { "type": "string" },
+        "savedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "videoId", "title", "category", "savedAt"]
+    },
+    "VideoNote": {
+      "title": "VideoNote",
+      "description": "Personal study note linked to a video.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "videoId": { "type": "string" },
+        "videoTitle": { "type": "string" },
+        "content": { "type": "string" },
+        "timestampLabel": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "videoId", "videoTitle", "content", "createdAt", "updatedAt"]
+    },
+    "WatchHistoryItem": {
+      "title": "WatchHistoryItem",
+      "description": "Watch progress entry for Continue Watching and playlist completion tracking.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "videoId": { "type": "string" },
+        "title": { "type": "string" },
+        "playlistId": { "type": "string" },
+        "progressPercent": { "type": "integer" },
+        "lastWatchedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "videoId", "title", "progressPercent", "lastWatchedAt"]
+    },
+    "CommunityPost": {
+      "title": "CommunityPost",
+      "description": "Public Q&A post in the Kabir Tech Lab community feed.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "category": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "likesCount": { "type": "integer" },
+        "repliesCount": { "type": "integer" },
+        "reported": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "authorName", "title", "body", "category", "visibility", "likesCount", "repliesCount", "reported", "createdAt", "updatedAt"]
+    },
+    "CommunityReply": {
+      "title": "CommunityReply",
+      "description": "Reply to a community post.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "text": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "postId", "authorName", "text", "visibility", "createdAt"]
+    },
+    "CommunityJoin": {
+      "title": "CommunityJoin",
+      "description": "Member registration submission with contact info (PII restricted to owner and admin).",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "contactInfo": { "type": "string" },
+        "interests": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "fullName", "contactInfo", "interests", "createdAt"]
+    },
+    "VideoRequest": {
+      "title": "VideoRequest",
+      "description": "User video topic request or contact/feedback submission.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "requesterName": { "type": "string" },
+        "requestType": { "type": "string", "enum": ["video_request", "feedback"] },
+        "topic": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "planned", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "requesterName", "requestType", "topic", "details", "status", "createdAt"]
+    },
+    "Poll": {
+      "title": "Poll",
+      "description": "Community poll on upcoming video topics.",
+      "type": "object",
+      "properties": {
+        "questionBn": { "type": "string" },
+        "questionEn": { "type": "string" },
+        "options": { "type": "array" },
+        "voteCounts": { "type": "array" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["questionBn", "questionEn", "options", "voteCounts", "visibility", "active", "createdAt", "updatedAt"]
+    },
+    "PollVote": {
+      "title": "PollVote",
+      "description": "Single vote record per user per poll.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "optionIndex": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "optionIndex", "createdAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Home announcement banner and admin notification broadcast.",
+      "type": "object",
+      "properties": {
+        "titleBn": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "bodyBn": { "type": "string" },
+        "bodyEn": { "type": "string" },
+        "active": { "type": "boolean" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["titleBn", "titleEn", "bodyBn", "bodyEn", "active", "visibility", "createdAt", "updatedAt"]
+    },
+    "QuizQuestion": {
+      "title": "QuizQuestion",
+      "description": "Daily tech quiz question created by admin.",
+      "type": "object",
+      "properties": {
+        "questionBn": { "type": "string" },
+        "questionEn": { "type": "string" },
+        "optionsBn": { "type": "array" },
+        "optionsEn": { "type": "array" },
+        "correctIndex": { "type": "integer" },
+        "explanationBn": { "type": "string" },
+        "explanationEn": { "type": "string" },
+        "xpReward": { "type": "integer" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["questionBn", "questionEn", "optionsBn", "optionsEn", "correctIndex", "explanationBn", "explanationEn", "xpReward", "visibility", "createdAt"]
+    },
+    "VideoResource": {
+      "title": "VideoResource",
+      "description": "Downloadable or external resource attached to a video.",
+      "type": "object",
+      "properties": {
+        "videoId": { "type": "string" },
+        "titleBn": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "resourceType": { "type": "string", "enum": ["PDF", "CODE", "TOOL", "LINK"] },
+        "url": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["videoId", "titleBn", "titleEn", "resourceType", "url", "visibility", "createdAt"]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Non-PII public leaderboard standing for quizzes and watch XP.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "xpPoints": { "type": "integer" },
+        "streakDays": { "type": "integer" },
+        "badgesCount": { "type": "integer" },
+        "visibility": { "type": "string", "enum": ["public"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "displayName", "xpPoints", "streakDays", "badgesCount", "visibility", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Authenticated user profile and learning progress."
+    },
+    "/users/{userId}/saved_videos/{videoId}": {
+      "schema": { "$ref": "#/entities/SavedVideo" },
+      "description": "User saved videos subcollection."
+    },
+    "/users/{userId}/video_notes/{noteId}": {
+      "schema": { "$ref": "#/entities/VideoNote" },
+      "description": "User personal notes on videos."
+    },
+    "/users/{userId}/watch_history/{videoId}": {
+      "schema": { "$ref": "#/entities/WatchHistoryItem" },
+      "description": "User video watch history and progress."
+    },
+    "/community_posts/{postId}": {
+      "schema": { "$ref": "#/entities/CommunityPost" },
+      "description": "Community Q&A feed posts."
+    },
+    "/community_posts/{postId}/replies/{replyId}": {
+      "schema": { "$ref": "#/entities/CommunityReply" },
+      "description": "Replies under a community post."
+    },
+    "/community_joins/{joinId}": {
+      "schema": { "$ref": "#/entities/CommunityJoin" },
+      "description": "Community join requests with contact info."
+    },
+    "/video_requests/{requestId}": {
+      "schema": { "$ref": "#/entities/VideoRequest" },
+      "description": "User video topic requests and feedback messages."
+    },
+    "/polls/{pollId}": {
+      "schema": { "$ref": "#/entities/Poll" },
+      "description": "Topic polls for the channel community."
+    },
+    "/polls/{pollId}/votes/{voterId}": {
+      "schema": { "$ref": "#/entities/PollVote" },
+      "description": "User votes on polls."
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Home screen announcements and admin push alerts."
+    },
+    "/quizzes/{quizId}": {
+      "schema": { "$ref": "#/entities/QuizQuestion" },
+      "description": "Tech quiz questions."
+    },
+    "/video_resources/{resourceId}": {
+      "schema": { "$ref": "#/entities/VideoResource" },
+      "description": "Resources attached to videos."
+    },
+    "/leaderboard/{userId}": {
+      "schema": { "$ref": "#/entities/LeaderboardEntry" },
+      "description": "Public XP and streak leaderboard."
+    }
+  }
+}
